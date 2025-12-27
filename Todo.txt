@@ -2,11 +2,19 @@
 - Create main page with buttons to choose which animation
 - Design main page
     - Style main page
+    - Main page buttons
+        - Snake button - wiggles like a snake
+        - Fish button - flops like a fish
+        - Bug button - scatters like bugs
+        - Bunny button - hops like a bunny
 - Create base particle generation?
 - OR optimise for each simulation
-- Choose colour palette for website
+- Choose colour palette for website ✅
+    - (the same one i use all the time, dark background) ✅
 - Choose font for website
 - Get current page from sessionstorage ✅
+- Change current page by clicking buttons ✅
+- Add back button to change current page back to menu
 -------- IDEAS --------
 
 Snake Party

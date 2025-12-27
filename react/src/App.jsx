@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-function Menu() {
+function Menu({ setPageFunction }) {
   return (
     <div>
-      <p>this is the menu</p>
+      <button onClick={() => setPageFunction("snake")}>snake</button>
+      <button onClick={() => setPageFunction("bunny")}>bunny</button>
+      <button onClick={() => setPageFunction("bug")}>bug</button>
+      <button onClick={() => setPageFunction("fish")}>fish</button>
     </div>
   )
 }
@@ -25,7 +28,9 @@ function App() {
 
   if (CurrentPage === "menu") {
     return (
-      <Menu />
+      <div>
+        <Menu setPageFunction={setCurrentPage}/>
+      </div>
     )
   } else {
     return (

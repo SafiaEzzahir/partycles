@@ -1,0 +1,14 @@
+Snake Party
+    - add particles to your conga line
+    - if they're close enough
+    - particles die and respawn outside of conga line
+    - other factors?
+
+Bug Party
+    - bugs under a rock
+
+Fish Party
+    - simulate underwater tsunamis/volcanoes
+    - add wind
+    - add rain
+    - change water temp

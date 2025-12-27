@@ -1,3 +1,14 @@
+
+- Create main page with buttons to choose which animation
+- Design main page
+    - Style main page
+- Create base particle generation?
+- OR optimise for each simulation
+- Choose colour palette for website
+- Choose font for website
+- Get current page from sessionstorage ✅
+-------- IDEAS --------
+
 Snake Party
     - add particles to your conga line
     - if they're close enough
@@ -12,3 +23,7 @@ Fish Party
     - add wind
     - add rain
     - change water temp
+
+Bunny Party
+    - lots of babies
+    - when 2 particles collide

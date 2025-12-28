@@ -3,6 +3,10 @@
 
 - add easter eggs!!
 
+- find comments in code to add to to-do list
+
+- add description to simulation pages
+
 - Design main page
     - Style main page ✅
     - Main page title ✅
@@ -24,6 +28,8 @@
             - shape = "rectangle, x, y", "circle, radius", "square, length", ✅ "triangle, ?, ?"
                 - add shape attribute to ParticlesList ✅
                     - handle "triangle" 🟠
+                    - handle "ellipse" ✅
+                        - rotate ellipse based on direction 🟠
                     - parameters for rectangle widths (p.sfx, p.sfy) ✅
                     - random is not random; pseudorandom
                 - add custom behaviour to ParticlesList ✅
@@ -31,6 +37,7 @@
                 - add shadow & blur to ParticlesList
             - what to have in custom behaviour?
             - onMove for CursorParticles
+    - RANDOMISEEEEEE
     
     - Add colour palette ✅
 
@@ -55,20 +62,20 @@ Snake Party
 
 Bug Party
     - colours: shades of deep brown
-    - shapes: squares, tiny circles for very small bugs, rectangles for wood 
+    - shapes: squares ✅, tiny circles for very small bugs ✅, rectangles for wood 
     - bugs under a rock
 
 Fish Party
     - colours: orange, blue for water/wind
-    - shapes: ellipses 🟡 or rectangles ✅ circle for weather
+    - shapes: ellipses ✅ or rectangles ✅ circle for weather
     - simulate underwater tsunamis/volcanoes
     - add wind
     - add rain
     - change water temp
 
 Bunny Party
-    - colours: babies are light pink, adults are dark pinker
-    - shapes: cirlces
+    - colours: babies are light pink, adults are dark pinker ✅ - change alpha values
+    - shapes: cirlces ✅
     - increase size as they become adults, then stop
     - lots of babies
     - when 2 particles collide

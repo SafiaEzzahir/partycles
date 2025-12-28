@@ -1,6 +1,8 @@
 
 - Create main page with buttons to choose which animation
 
+- add easter eggs!!
+
 - Design main page
     - Style main page ✅
     - Main page title ✅
@@ -11,16 +13,18 @@
         - Bug button - scatters like bugs 🟠
         - Bunny button - hops like a bunny 🟠
 
-- Create base particle generation? 🟡
+- Create base particle generation? ✅
     - base page ✅
     - base canvas ✅
     - base cursor particles & enablement with prop (true/false) 🟠
     - Set up props for ParticleCanvas ✅
-        - allow for custom functions 🟠
+        - allow for custom functions ✅
             - colour function & update colour function ✅
             - update ChooseParticleType for other Pages 🟡
             - shape = "rectangle, x, y", "circle, radius", "square, length", "triangle, ?, ?"
-                - add shape attribute to ParticlesList
+                - add shape attribute to ParticlesList ✅
+                    - handle "triangle" 🟡
+                    - random is not random; pseudorandom
                 - add custom behaviour to ParticlesList
                 - add opacity function to ParticlesList
                 - add shadow & blur to ParticlesList
@@ -40,7 +44,7 @@
 
 Snake Party
     - colours: alternate 50/50 yellow & green ✅ cursor one is pink, ✅ permanent
-    - shapes: cursor particle is triangle, others are circles
+    - shapes: cursor particle is triangle, others are squares 🟡
     - add particles to your conga line
     - if they're close enough
     - particles die and respawn outside of conga line
@@ -48,7 +52,7 @@ Snake Party
 
 Bug Party
     - colours: shades of deep brown
-    - shapes: cirlces with lines as legs, tiny circles for wood/very small bugs
+    - shapes: squares, tiny circles for very small bugs, rectangles for wood 
     - bugs under a rock
 
 Fish Party
@@ -61,7 +65,8 @@ Fish Party
 
 Bunny Party
     - colours: babies are light pink, adults are dark pinker
-    - shapes: cirlces for babies, ellipses for adults?
+    - shapes: cirlces
+    - increase size as they become adults, then stop
     - lots of babies
     - when 2 particles collide
 

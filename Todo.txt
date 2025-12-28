@@ -21,13 +21,16 @@
         - allow for custom functions ✅
             - colour function & update colour function ✅
             - update ChooseParticleType for other Pages 🟡
-            - shape = "rectangle, x, y", "circle, radius", "square, length", "triangle, ?, ?"
+            - shape = "rectangle, x, y", "circle, radius", "square, length", ✅ "triangle, ?, ?"
                 - add shape attribute to ParticlesList ✅
-                    - handle "triangle" 🟡
+                    - handle "triangle" 🟠
+                    - parameters for rectangle widths (p.sfx, p.sfy) 🟠
                     - random is not random; pseudorandom
-                - add custom behaviour to ParticlesList
+                - add custom behaviour to ParticlesList ✅
                 - add opacity function to ParticlesList
                 - add shadow & blur to ParticlesList
+            - what to have in custom behaviour?
+            - onMove for CursorParticles
     
     - Add colour palette ✅
 

@@ -61,12 +61,12 @@ Snake Party
     - other factors?
 
 Bug Party
-    - colours: shades of deep brown
+    - colours: shades of deep brown ✅
     - shapes: squares ✅, tiny circles for very small bugs ✅, rectangles for wood 
     - bugs under a rock
 
 Fish Party
-    - colours: orange, blue for water/wind
+    - colours: orange, blue for water/wind ✅
     - shapes: ellipses ✅ or rectangles ✅ circle for weather
     - simulate underwater tsunamis/volcanoes
     - add wind

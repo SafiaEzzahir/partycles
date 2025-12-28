@@ -14,7 +14,7 @@ function Menu({ setPageFunction }) {
         <p id="MenuDesc">party in the front, physics in the back ;D</p>
         <div id='MenuButtons'>
             {MenuButtons.map((Button, i) => (
-              <button key={i} className='MenuButton' id={Button.Id} onClick={setPageFunction(Button.PageName)}>{Button.Text}</button>
+              <button key={i} className='MenuButton' id={Button.Id} onClick={() => {setPageFunction(Button.PageName); sessionStorage.setItem("CurrentPage", Button.PageName)}}>{Button.Text}</button>
             ))}
         </div>
     </div>

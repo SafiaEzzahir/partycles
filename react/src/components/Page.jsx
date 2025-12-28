@@ -4,7 +4,7 @@ function Page(props) {
     return (
         <div>
             <ParticleCanvas />
-            <button className="BackButton" onClick={() => props.setPageFunction('menu')}>back</button>
+            <button className="BackButton" onClick={() => {sessionStorage.setItem("CurrentPage", "menu"); console.log("changing current page to menu"); props.setPageFunction("menu");}}>back</button>
             <p>this page has been created! yay!! i love {props.animal}!!!</p>
         </div>
     )

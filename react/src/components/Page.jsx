@@ -84,12 +84,11 @@ export function FishPage(props) {
             Colour: ["#D76B00"],
             Life: 5000,
             Size: 15,
-            // randomise radii a bit
             // mostly horizontal swimming
             // affects direction of water, when still gets affected by direction of water
             // water, when affected by wind strongly enough, affects fish
             // toggle wind particles
-            Shape: {name: "ellipse", rx: 1.6, ry: 0.6}
+            Shape: {name: "ellipse", rx: 1.6 + Math.random() - 0.5, ry: 0.6 + Math.random() - 0.5}
         },
         {
             Particle: "WaterParticle",

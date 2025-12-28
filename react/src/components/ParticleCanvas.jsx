@@ -41,16 +41,9 @@ export default function ParticleCanvas(props) {
         SpawnParticle(55);
         window.addEventListener('resize', resize)
 
-        function CreateParticle(x, y, vx, vy) {
+        function CreateParticle(lastX, lastY) {
             let p = PoolRef.current.pop()
             if (!p) p = {};
-
-            p.x = x;
-            p.y = y;
-            p.vx = vx;
-            p.vy = vy;
-            p.age = 0;
-            
             if (props.ParticleFunction) {
                 props.ParticleFunction(p)
             } else {
@@ -59,6 +52,21 @@ export default function ParticleCanvas(props) {
                 p.life = 2500 + Math.random() * 100;
             }
             
+            if (p.initfunction) {
+                p.initfunction(p, Canvas.width / Dpr, Canvas.height / Dpr)
+            }
+            
+            p.age = 0;
+            p.x = p.x ?? Math.random() * (Canvas.width - Dpr/5);
+            p.y = p.y ?? Math.random() * (Canvas.height - Dpr/5);
+            p.angle = p.angle ?? Math.atan2(p.y - (lastY ?? p.y) + (Math.random() - 0.5) * 1.2, p.x - (lastX ?? p.x) + (Math.random() - 0.5) * 1.2);
+            
+            const speed = 0.05 + Math.random() * 1.2;
+            p.vx = Math.cos(p.angle) * speed;
+            p.vy = Math.sin(p.angle) * speed;
+            
+            p.life = p.life ?? Math.random() * 1000
+            
             p.color = p.colourlist[Math.floor(Math.random() * p.colourlist.length)];
 
             return p;
@@ -66,20 +74,13 @@ export default function ParticleCanvas(props) {
 
         function SpawnParticle(count, lastX, lastY) {
             for (let i = 0; i < count; i++) {
-                const x = Math.random() * (Canvas.width - Dpr/5);
-                const y = Math.random() * (Canvas.height - Dpr/5);
 
-                const angle = Math.atan2(y - (lastY ?? y) + (Math.random() - 0.5) * 1.2, x - (lastX ?? x) + (Math.random() - 0.5) * 1.2);
-                const speed = 0.05 + Math.random() * 1.2;
-                const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed;
-
-                const p = CreateParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6, vx, vy);
+                const p = CreateParticle(lastX, lastY);
 
                 ParticlesRef.current.push(p);
 
                 // 60 is max particles
-                if (PoolRef.current.length > 55) {
+                if (ParticlesRef.current.length > 55) {
                     const removed = ParticlesRef.current.shift();
                     PoolRef.current.push(removed);
                 }
@@ -97,8 +98,9 @@ export default function ParticleCanvas(props) {
             for (let i = Particles.length - 1; i >= 0; i--) {
                 const p = Particles[i];
 
+                let size = p.size
+
                 if (p.custombehaviour) {
-                    console.log("custombehaviour")
                     p.custombehaviour(p)
                 } else {
                     p.age += Dt;
@@ -112,17 +114,19 @@ export default function ParticleCanvas(props) {
                     p.vy *= 0.999;
                     p.x += p.vx * (Dt/16);
                     p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
+                    
+                    size = p.size * (1 - t * 0.8)
     
-                    var t = p.age / p.life;
-                    var alpha = 1 - t;
-                    var size = p.size * (1 - t * 0.8)
                     // ^^ determine alpha value for transparency and size based on age
                 }
-
+                
+                var t = p.age / p.life;
+                p.alpha = p.alpha ?? 1 - t;
+                
                 Ctx.save();
                 Ctx.beginPath();
                 Ctx.fillStyle = p.color;
-                Ctx.globalAlpha = alpha ?? 1;
+                Ctx.globalAlpha = p.alpha ?? 1;
                 Ctx.shadowColor = p.color;
                 Ctx.shadowBlur = 10;
 
@@ -133,9 +137,7 @@ export default function ParticleCanvas(props) {
                 } else if (p.shape.name == "circle") {
                     Ctx.arc(p.x, p.y, size, 0, Math.PI * 2)
                 } else if (p.shape.name == "ellipse") {
-                    // calculate direction, angle ellipse in direction (matrices)
-                    // horizontal for now
-                    const rotation = 0
+                    const rotation = Math.atan2(p.vy, p.vx) + (Math.random()-0.5)*0.5 // smooth
                     Ctx.ellipse(p.x, p.y, size*(p.shape.rx), size*(p.shape.ry), rotation, 0, Math.PI * 2)
                 }
 
@@ -150,11 +152,17 @@ export default function ParticleCanvas(props) {
         return () => {
             window.removeEventListener('resize', resize);
             ParticlesRef.current = [];
-            PoolRef.current = []
+            PoolRef.current = [];
+            cancelAnimationFrame(RafRef.current);
         }
-    }, [props]);
+    }, []);
 
     return (
         <canvas ref={CanvasRef} className='ParticleCanvas'></canvas>
     )
 };
+
+/*
+
+
+*/

@@ -51,15 +51,16 @@ export default function ParticleCanvas(props) {
                 p.size = 3 + Math.random() * 6;
                 p.life = 2500 + Math.random() * 100;
             }
+
+            p.x = Math.random() * (Canvas.width - Dpr/5);
+            p.y = Math.random() * (Canvas.height - Dpr/5);
+            p.age = 0;
+            p.angle = Math.atan2(p.y - (lastY ?? p.y) + (Math.random() - 0.5) * 1.2, p.x - (lastX ?? p.x) + (Math.random() - 0.5) * 1.2);
             
             if (p.initfunction) {
                 p.initfunction(p, Canvas.width / Dpr, Canvas.height / Dpr)
             }
             
-            p.age = 0;
-            p.x = p.x ?? Math.random() * (Canvas.width - Dpr/5);
-            p.y = p.y ?? Math.random() * (Canvas.height - Dpr/5);
-            p.angle = p.angle ?? Math.atan2(p.y - (lastY ?? p.y) + (Math.random() - 0.5) * 1.2, p.x - (lastX ?? p.x) + (Math.random() - 0.5) * 1.2);
             
             const speed = 0.05 + Math.random() * 1.2;
             p.vx = Math.cos(p.angle) * speed;

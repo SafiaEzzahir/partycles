@@ -95,3 +95,22 @@ button {
     font-size: 19px;
     font-weight: 500;
 }
+
+.BackButton {
+    cursor: pointer;
+    border: none;
+    background-color: #C4C7CC;
+    border-radius: 3px;
+    padding: 5px 9px;
+    width: fit-content;
+    color: #494949;
+}
+
+.PageContainer {
+    display: flex;
+    color: #C4C7CC;
+    flex-direction: column;
+    justify-content: end;
+    height: 96vh;
+    margin-left: 20px;
+}

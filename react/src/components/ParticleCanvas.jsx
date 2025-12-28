@@ -134,6 +134,8 @@ export default function ParticleCanvas(props) {
                 if (p.shape.name == "square") {
                     Ctx.rect(p.x, p.y, size, size);
                 } else if (p.shape.name == "rectangle") {
+                    const rotation = Math.atan2(p.vy, p.vx) + (Math.random()-0.5)*0.1
+                    Ctx.rotate(rotation * Math.PI / 180)
                     Ctx.rect(p.x, p.y, (size*p.shape.sfy), (size*p.shape.sfx))
                 } else if (p.shape.name == "circle") {
                     Ctx.arc(p.x, p.y, size, 0, Math.PI * 2)

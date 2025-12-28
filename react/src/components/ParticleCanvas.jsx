@@ -6,6 +6,7 @@ import '../components/ParticleCanvas.css';
 // add mouse-following particles
 
 export default function ParticleCanvas(props) {
+
     const CanvasRef = useRef(null);
     const ParticlesRef = useRef([]);
 
@@ -52,7 +53,7 @@ export default function ParticleCanvas(props) {
             p.size = 3 + Math.random() * 6;
             p.life = 2500 + Math.random() * 100;
             p.age = 0;
-            p.color = "#ffffff";
+            p.color = props.ColourFunction();
             return p;
         }
 

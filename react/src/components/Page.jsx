@@ -2,6 +2,10 @@ import ParticleCanvas from '../components/ParticleCanvas.jsx';
 
 function Page(props) {
 
+    function CustomBehaviour(p) {
+        console.log(p)
+    }
+
     function ChooseParticleType(p) {
         const ParticleList = props.ParticleList
         

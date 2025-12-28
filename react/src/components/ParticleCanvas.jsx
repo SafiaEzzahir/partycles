@@ -97,23 +97,26 @@ export default function ParticleCanvas(props) {
 
             for (let i = Particles.length - 1; i >= 0; i--) {
                 const p = Particles[i];
-                p.age += Dt;
-                if (p.age >= p.life) {
-                    Particles.splice(i, 1);
-                    PoolRef.current.push(p);
-                    SpawnParticle(1)
-                    continue;
+                if (p.custombehaviour) {
+                    p.custombehaviour(p)
+                } else {
+                    p.age += Dt;
+                    if (p.age >= p.life) {
+                        Particles.splice(i, 1);
+                        PoolRef.current.push(p);
+                        SpawnParticle(1)
+                        continue;
+                    }
+                    p.vx *= 0.999;
+                    p.vy *= 0.999;
+                    p.x += p.vx * (Dt/16);
+                    p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
+    
+                    const t = p.age / p.life;
+                    const alpha = 1 - t;
+                    const size = p.size * (1 - t * 0.8)
+                    // ^^ determine alpha value for transparency and size based on age
                 }
-
-                p.vx *= 0.999;
-                p.vy *= 0.999;
-                p.x += p.vx * (Dt/16);
-                p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
-
-                const t = p.age / p.life;
-                const alpha = 1 - t;
-                const size = p.size * (1 - t * 0.8)
-                // ^^ determine alpha value for transparency and size based on age
 
                 Ctx.save();
                 Ctx.beginPath();

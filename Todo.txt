@@ -5,19 +5,20 @@
     - Style main page ✅
     - Main page title ✅
     - Main page desc (party in the front, physics in the back XD) ✅
-    - Main page buttons 🟡
+    - Main page buttons 
         - Snake button - wiggles like a snake 🟠
         - Fish button - flops like a fish 🟠
         - Bug button - scatters like bugs 🟠
         - Bunny button - hops like a bunny 🟠
 
-- Create base particle generation? 🟠
+- Create base particle generation? 🟡
     - base page ✅
     - base canvas ✅
     - base cursor particles & enablement with prop (true/false) 🟠
     - Set up props for ParticleCanvas 🟠
         - allow for custom functions 🟠
             - colour function & update colour function ✅
+            - shape = "rectangle, x, y", "circle, radius", "square, length", "triangle, ?, ?"
     
     - Add colour palette ✅
 
@@ -33,21 +34,29 @@
 -------- IDEAS --------
 
 Snake Party
+    - colours: alternate 50/50 yellow & green, cursor one is green, permanent
+    - shapes: cursor particle is triangle, others are circles
     - add particles to your conga line
     - if they're close enough
     - particles die and respawn outside of conga line
     - other factors?
 
 Bug Party
+    - colours: shades of deep brown
+    - shapes: cirlces with lines as legs, tiny circles for wood/very small bugs
     - bugs under a rock
 
 Fish Party
+    - colours: orange, blue for water/wind
+    - shapes: ellipses or rectangles? circle for weather
     - simulate underwater tsunamis/volcanoes
     - add wind
     - add rain
     - change water temp
 
 Bunny Party
+    - colours: babies are light pink, adults are dark pinker
+    - shapes: cirlces for babies, ellipses for adults?
     - lots of babies
     - when 2 particles collide
 

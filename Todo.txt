@@ -20,11 +20,11 @@
     - Set up props for ParticleCanvas ✅
         - allow for custom functions ✅
             - colour function & update colour function ✅
-            - update ChooseParticleType for other Pages 🟡
+            - update ChooseParticleType for other Pages ✅
             - shape = "rectangle, x, y", "circle, radius", "square, length", ✅ "triangle, ?, ?"
                 - add shape attribute to ParticlesList ✅
                     - handle "triangle" 🟠
-                    - parameters for rectangle widths (p.sfx, p.sfy) 🟠
+                    - parameters for rectangle widths (p.sfx, p.sfy) ✅
                     - random is not random; pseudorandom
                 - add custom behaviour to ParticlesList ✅
                 - add opacity function to ParticlesList
@@ -47,7 +47,7 @@
 
 Snake Party
     - colours: alternate 50/50 yellow & green ✅ cursor one is pink, ✅ permanent
-    - shapes: cursor particle is triangle, others are squares 🟡
+    - shapes: cursor particle is triangle, others are squares 🟠
     - add particles to your conga line
     - if they're close enough
     - particles die and respawn outside of conga line
@@ -60,7 +60,7 @@ Bug Party
 
 Fish Party
     - colours: orange, blue for water/wind
-    - shapes: ellipses or rectangles? circle for weather
+    - shapes: ellipses 🟡 or rectangles ✅ circle for weather
     - simulate underwater tsunamis/volcanoes
     - add wind
     - add rain

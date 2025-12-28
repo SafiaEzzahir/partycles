@@ -24,6 +24,12 @@ function Page(props) {
         p.life = (ParticleChoice.Life + Math.random() * 6)
         p.colourlist = ParticleChoice.Colour
         p.shape = ParticleChoice.Shape
+
+        for (Attribute in p.shape.keys()) {
+            if (Attribute != p.shape.name) {
+                Attribute += Math.random() - 0.5
+            }
+        }
         
     }
 
@@ -84,11 +90,11 @@ export function FishPage(props) {
             Colour: ["#D76B00"],
             Life: 5000,
             Size: 15,
-            // mostly horizontal swimming
+            // mostly horizontal swimming 🟡
             // affects direction of water, when still gets affected by direction of water
             // water, when affected by wind strongly enough, affects fish
             // toggle wind particles
-            Shape: {name: "ellipse", rx: 1.6 + Math.random() - 0.5, ry: 0.6 + Math.random() - 0.5}
+            Shape: {name: "ellipse", rx: 1.6, ry: 0.6}
         },
         {
             Particle: "WaterParticle",

@@ -2,7 +2,7 @@ import ParticleCanvas from '../components/ParticleCanvas.jsx';
 
 function Page(props) {
     function DefaultColourFunction() {
-        return props.DefaultColor
+        return props.DefaultColourList[Math.floor(Math.random() * props.DefaultColourList.length)]
     }
 
     return (
@@ -18,11 +18,13 @@ function Page(props) {
 }
 
 export default function SnakePage(props) {
+    /* needs a custom function to detect what colour and add to snake */
+
     return (
         <Page 
             animal="snake"
             setPageFunction={props.setPageFunction}
-            DefaultColor="#22B64E"
+            DefaultColourList={["#22B64E", "#22B64E", "#006E2B", "#FFC500"]}
         />
     )
 }

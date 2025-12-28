@@ -1,10 +1,14 @@
 import ParticleCanvas from '../components/ParticleCanvas.jsx';
 
 function Page(props) {
+    function DefaultColourFunction() {
+        return props.DefaultColor
+    }
+
     return (
         <div>
             <ParticleCanvas
-                ColourFunction={props.ColourFunction}
+                ColourFunction={props.ColourFunction ? props.ColourFunction : DefaultColourFunction}
             />
 
             <button className="BackButton" onClick={() => {sessionStorage.setItem("CurrentPage", "menu"); console.log("changing current page to menu"); props.setPageFunction("menu");}}>back</button>
@@ -14,15 +18,11 @@ function Page(props) {
 }
 
 export default function SnakePage(props) {
-    function ChooseColour() {
-        return '#FFF555'
-    }
-
     return (
         <Page 
             animal="snake"
             setPageFunction={props.setPageFunction}
-            ColourFunction={ChooseColour}
+            DefaultColor="#22B64E"
         />
     )
 }

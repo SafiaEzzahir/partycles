@@ -31,7 +31,7 @@ function App() {
     )
   } else if (PagesToReturn[CurrentPage]) {
     const PageToReturn = PagesToReturn[CurrentPage]
-    return <PageToReturn />
+    return <PageToReturn setPageFunction={setCurrentPage} />
   } else {
     return (
       <div>

@@ -19,9 +19,9 @@ function Page(props) {
 
         const ParticleChoice = ParticleList[Math.floor(Math.random() * ParticleList.length)]
 
-        p.size = ParticleChoice.Size
+        p.size = (ParticleChoice.size + Math.random() * 6)
         p.type = ParticleChoice.Particle
-        p.life = ParticleChoice.Life
+        p.life = (ParticleChoice.Life + Math.random() * 6)
         p.colourlist = ParticleChoice.Colour
         p.shape = ParticleChoice.Shape
         
@@ -48,14 +48,14 @@ export default function SnakePage(props) {
             Particle: "CursorParticle",
             Colour: ["#FF007B"],
             Life: 10500,
-            Size: (10 + Math.random() * 6),
+            Size: 10,
             Shape: {name: "square"}
         },
         {
             Particle: "FloatingParticle",
             Colour: ["#22B64E", "#22B64E", "#22B64E", "#006E2B", "#FFC500", "#FFC500"],
             Life: 3000,
-            Size: (5 + Math.random() * 6),
+            Size: 5,
             Shape: {name: "square"}
         }
     ]
@@ -76,14 +76,14 @@ export function FishPage(props) {
             Particle: "RectangleGoldfishParticle",
             Colour: ["#D76B00"],
             Life: 5000,
-            Size: (10 + Math.random() * 6),
+            Size: 10,
             Shape: {name: "rectangle", sfx: 0.6, sfy: 1.6}
         },
         {
             Particle: "EllipticGoldfishParticle",
             Colour: ["#D76B00"],
             Life: 5000,
-            Size: (15 + Math.random() * 6),
+            Size: 15,
             // randomise radii a bit
             // mostly horizontal swimming
             // affects direction of water, when still gets affected by direction of water
@@ -95,7 +95,7 @@ export function FishPage(props) {
             Particle: "WaterParticle",
             Colour: ["#137594", "#16677A", "#1BAAB8", "#38D4E3", "#AAF4FF", "#6FE2FF", "#55EBFF", "#52CACD"],
             Life: 3000,
-            Size: (0.5 + Math.random() * 6),
+            Size: 0.5,
             Shape: {name: "circle"}
         }
     ]
@@ -116,14 +116,14 @@ export function BugPage(props) {
             Particle: "BigbugParticle",
             Colour: ["#002800", "#3F0F0F", "#6B2E1A", "#801E1E", "#A34E2B", "#7B3540", "#ED1C24", "#006E2B"],
             Life: 4000,
-            Size: (12 + Math.random() * 6),
+            Size: 12,
             Shape: {name: "square"}
         },
         {
             Particle: "LittlebugParticle",
             Colour: ["#ED1C24", "#FFA260", "#A68862", "#006E2B"],
             Life: 5000,
-            Size: (3 + Math.random() * 6),
+            Size: 3,
             Shape: {name: "square"}
         }
     ]
@@ -144,7 +144,7 @@ export function BunnyPage(props) {
             Particle: "BabyBunny",
             Colour: ["#FF7289", "#7C72FF", "#DDDDDD", "#FF7289", "#7C72FF", "#DDDDDD", "#22B64E", "#FFC500", "#2AB4D9", "#2AB4D9"],
             Life: 8000,
-            Size: (1.5 + Math.random() * 20),
+            Size: 1.5,
             Shape: {name: "circle"}
         }
     ]

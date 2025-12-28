@@ -11,7 +11,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 30px;
+    margin: 0px;
 }
 
 .MenuButton {
@@ -20,7 +20,7 @@
     border: none;
     color: inherit;
     cursor: pointer;
-    margin: 20px;
+    margin: 30px;
     padding: 10px 25px;
     border-radius: 6.5px;
 }
@@ -38,10 +38,34 @@
 
 #SnakeMenuButton {
     background-color: green;
+    position: relative;
+}
+
+#SnakeMenuButton:hover{
+    animation: WibbleSnake 0.5s ease-in-out infinite both;
+}
+
+@keyframes WibbleSnake {
+    0% { transform: translateY(0px) }
+    33% { transform: translateY(15px) }
+    50% { transform: translateY(15px) }
+    100% { transform: translateY(0px)}
 }
 
 #BunnyMenuButton {
     background-color: pink;
+}
+
+#BunnyMenuButton:hover {
+    animation: BunnyBounce 5s ease-in-out infinite both;
+}
+
+/* squish & move down a bit */
+@keyframes BunnyBounce {
+    0% { transform: translateY(0px) }
+    10% { transform: translateY(-5px); padding: 5px 35px; }
+    50% { transform: translateY(15px); margin: 5px; }
+    100% { transform: translateY(0px) }
 }
 
 #BugMenuButton {

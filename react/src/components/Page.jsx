@@ -38,8 +38,10 @@ function Page(props) {
                 ParticleFunction={ChooseParticleType}
             />
 
-            <button className="BackButton" onClick={() => {sessionStorage.setItem("CurrentPage", "menu"); props.setPageFunction("menu");}}>back</button>
-            <p>this page has been created! yay!! i love {props.animal}!!!</p>
+            <div className='PageContainer'>
+                <button className="BackButton" onClick={() => {sessionStorage.setItem("CurrentPage", "menu"); props.setPageFunction("menu");}}>back</button>
+                <p>{props.desc}</p>
+            </div>
         </div>
     )
 }
@@ -67,7 +69,7 @@ export default function SnakePage(props) {
 
     return (
         <Page 
-            animal="snake"
+            text="snake-themed particles vaguely inspired by the retro game 'snake' (crazy, i know)"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
         />
@@ -106,7 +108,7 @@ export function FishPage(props) {
 
     return (
         <Page
-            animal="fish"
+            desc="very abstract ocean simulation (use your imagination ;D)"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
         />
@@ -134,7 +136,7 @@ export function BugPage(props) {
 
     return (
         <Page
-            animal="bug"
+            desc="pov: bugs when you lift up a random log that happens to be their home"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
         />
@@ -155,7 +157,7 @@ export function BunnyPage(props) {
 
     return (
         <Page
-            animal="bunny"
+            desc="baby bunnies can't stop appearing !!"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
         />

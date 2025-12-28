@@ -1,10 +1,10 @@
 import './Menu.css'
 
 const MenuButtons = [
-  {Text: "snake", PageName: "snake", Id: "SnakeMenuButton"},
-  {Text: "bunny", PageName: "bunny", Id: "BunnyMenuButton"},
-  {Text: "bug", PageName: "bug", Id: "BugMenuButton"},
-  {Text: "fish", PageName: "fish", Id: "FishMenuButton"}
+  {Text: "snek party", PageName: "snake", Id: "SnakeMenuButton"},
+  {Text: "buni party", PageName: "bunny", Id: "BunnyMenuButton"},
+  {Text: "bug party", PageName: "bug", Id: "BugMenuButton"},
+  {Text: "fsh party", PageName: "fish", Id: "FishMenuButton"}
 ]
 
 function Menu({ setPageFunction }) {

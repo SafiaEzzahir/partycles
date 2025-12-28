@@ -1,6 +1,8 @@
 import ParticleCanvas from '../components/ParticleCanvas.jsx';
 import './Menu.css'
 
+// handle "infinite" life to immortalise particles
+
 function Page(props) {
 
     function CustomBehaviour(p) {
@@ -10,25 +12,22 @@ function Page(props) {
     function ChooseParticleType(p) {
         const ParticleList = props.ParticleList
         
-        /* ADD RANDOMNESS individually AND here */
-        /* can i make this function a template? yes i can!! */
-        /* takes: ParticleList
-            then I can use UI to update this component
-            that's what the attributes of the particles in ParticleList
-        */
+        /* add randomness HERE */
 
         const ParticleChoice = ParticleList[Math.floor(Math.random() * ParticleList.length)]
 
-        p.size = (ParticleChoice.size + Math.random() * 6)
+        p.size = (ParticleChoice.Size + Math.random() * 6)
         p.type = ParticleChoice.Particle
         p.life = (ParticleChoice.Life + Math.random() * 6)
         p.colourlist = ParticleChoice.Colour
         p.shape = ParticleChoice.Shape
 
-        for (Attribute in p.shape.keys()) {
-            if (Attribute != p.shape.name) {
-                Attribute += Math.random() - 0.5
-            }
+        if (p.shape.rx) {
+            p.shape.rx += Math.random()-0.5;
+            p.shape.ry += Math.random()-0.5;
+        } else if (p.shape.sfx) {
+            p.shape.sfx += Math.random()-0.5;
+            p.shape.sfy += Math.random()-0.5;
         }
         
     }

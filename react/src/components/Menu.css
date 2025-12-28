@@ -23,5 +23,11 @@
 
 #MenuTitle {
     font-size: 70px;
-    padding: 30px;
+    padding-top: 30px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+#MenuDesc {
+    font-size: 25px;
 }

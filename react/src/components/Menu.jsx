@@ -4,6 +4,7 @@ function Menu({ setPageFunction }) {
   return (
     <div id='Menu'>
         <h1 id='MenuTitle'>partycles</h1>
+        <p id="MenuDesc">party in the front, physics in the back ;D</p>
         <div id='MenuButtons'>
             <button className='MenuButton' id='SnakeMenuButton' onClick={() => setPageFunction("snake")}>snake</button>
             <button className='MenuButton' id='BunnyMenuButton' onClick={() => setPageFunction("bunny")}>bunny</button>

@@ -1,0 +1,9 @@
+.ParticleCanvas {
+    align-self: center;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}

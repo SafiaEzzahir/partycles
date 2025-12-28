@@ -1,7 +1,9 @@
+import ParticleCanvas from '../components/ParticleCanvas.jsx';
 
 function Page(props) {
     return (
         <div>
+            <ParticleCanvas />
             <button className="BackButton" onClick={() => props.setPageFunction('menu')}>back</button>
             <p>this page has been created! yay!! i love {props.animal}!!!</p>
         </div>

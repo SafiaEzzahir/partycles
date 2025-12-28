@@ -18,6 +18,7 @@ function Page(props) {
         p.type = ParticleChoice.Particle
         p.life = ParticleChoice.Life
         p.colourlist = ParticleChoice.Colour
+        p.shape = ParticleChoice.Shape
         
     }
 
@@ -42,13 +43,15 @@ export default function SnakePage(props) {
             Particle: "CursorParticle",
             Colour: ["#FF007B"],
             Life: 10500,
-            Size: (10 + Math.random() * 6)
+            Size: (10 + Math.random() * 6),
+            Shape: {name: "square"}
         },
         {
             Particle: "FloatingParticle",
             Colour: ["#22B64E", "#22B64E", "#22B64E", "#006E2B", "#FFC500", "#FFC500"],
             Life: 3000,
-            Size: (5 + Math.random() * 6)
+            Size: (5 + Math.random() * 6),
+            Shape: {name: "square"}
         }
     ]
 
@@ -68,13 +71,15 @@ export function FishPage(props) {
             Particle: "GoldfishParticle",
             Colour: ["#ff9b10"],
             Life: 3000,
-            Size: (5 + Math.random() * 6)
+            Size: (5 + Math.random() * 6),
+            Shape: {name: "square"}
         },
         {
             Particle: "WaterParticle",
             Colour: ["#0b5cf1", "#3fe2ed", "#1a7cecff"],
             Life: 30000,
-            Size: (2 + Math.random() * 6)
+            Size: (2 + Math.random() * 6),
+            Shape: {name: "square"}
         }
     ]
 
@@ -94,13 +99,15 @@ export function BugPage(props) {
             Particle: "BigbugParticle",
             Colour: ["#2d3223", "#373030", "#473312"],
             Life: 4000,
-            Size: (12 + Math.random() * 6)
+            Size: (12 + Math.random() * 6),
+            Shape: {name: "square"}
         },
         {
             Particle: "LittlebugParticle",
             Colour: ["#98401d", "#510e0e"],
             Life: 5000,
-            Size: (3 + Math.random() * 6)
+            Size: (3 + Math.random() * 6),
+            Shape: {name: "square"}
         }
     ]
 
@@ -120,7 +127,8 @@ export function BunnyPage(props) {
             Particle: "BabyBunny",
             Colour: ["#ffcdfb", "#8ec4f0", "#ffffff", "#ffcdfb", "#8ec4f0", "#ffffff", "#adfab7", "#f5e6a0"],
             Life: 8000,
-            Size: (1.5 + Math.random() * 20)
+            Size: (1.5 + Math.random() * 20),
+            Shape: {name: "circle"}
         }
     ]
 

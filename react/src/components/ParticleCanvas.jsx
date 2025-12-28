@@ -38,7 +38,7 @@ export default function ParticleCanvas(props) {
         }
 
         resize();
-        SpawnParticle(60);
+        SpawnParticle(55);
         window.addEventListener('resize', resize)
 
         function CreateParticle(x, y, vx, vy) {
@@ -53,6 +53,7 @@ export default function ParticleCanvas(props) {
             
             if (props.ParticleFunction) {
                 props.ParticleFunction(p)
+                console.log(p.size)
             } else {
                 p.colourlist = props.ColourList
                 p.size = 3 + Math.random() * 6;
@@ -79,7 +80,7 @@ export default function ParticleCanvas(props) {
                 ParticlesRef.current.push(p);
 
                 // 60 is max particles
-                if (ParticlesRef.current.length > 60) {
+                if (PoolRef.current.length > 55) {
                     const removed = ParticlesRef.current.shift();
                     PoolRef.current.push(removed);
                 }
@@ -121,7 +122,14 @@ export default function ParticleCanvas(props) {
                 Ctx.shadowColor = p.color;
                 Ctx.shadowBlur = 10;
 
-                Ctx.rect(p.x, p.y, size, size);
+                if (p.shape.name == "square") {
+                    Ctx.rect(p.x, p.y, size, size);
+                } else if (p.shape.name == "rectangle") {
+                    Ctx.rect(p.x, p.y, (size*p.shape.sfy), (size*p.shape.sfx))
+                } else if (p.shape.name == "circle") {
+                    Ctx.arc(p.x, p.y, size, 0, Math.PI * 2)
+                }
+
                 Ctx.stroke();
                 Ctx.fill();
                 Ctx.restore();
@@ -132,6 +140,8 @@ export default function ParticleCanvas(props) {
 
         return () => {
             window.removeEventListener('resize', resize);
+            ParticlesRef.current = [];
+            PoolRef.current = []
         }
     }, [props]);
 

@@ -1,4 +1,5 @@
 import ParticleCanvas from '../components/ParticleCanvas.jsx';
+import './Menu.css'
 
 function Page(props) {
 

@@ -27,9 +27,13 @@
 
 #MenuTitle {
     font-size: 70px;
-    padding-top: 30px;
+    margin-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
+    font-family: "Poppins", sans-serif;
+    padding-top: 25px;
+    font-weight: 800;
+    letter-spacing: 8px;
 }
 
 #MenuDesc {
@@ -74,4 +78,10 @@
 
 #FishMenuButton {
     background-color: orange;
+}
+
+button {
+    font-family: "Montserrat", sans-serif;
+    font-size: 19px;
+    font-weight: 500;
 }

@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 
 import '../components/ParticleCanvas.css';
 
-// props -> ColourPalette, CustomFunctions (= [function]), ParticleSize, ParticleLife <-- include randomness, MaxParticles, OnMoveFunction
+// props -> ColourPalette ✅ CustomFunctions (= [function]), ParticleSize, ParticleLife <-- include randomness, MaxParticles, OnMoveFunction
 // add mouse-following particles
 
 export default function ParticleCanvas(props) {
@@ -49,11 +49,18 @@ export default function ParticleCanvas(props) {
             p.y = y;
             p.vx = vx;
             p.vy = vy;
-
-            p.size = 3 + Math.random() * 6;
-            p.life = 2500 + Math.random() * 100;
             p.age = 0;
-            p.color = props.ColourFunction();
+            
+            if (props.ParticleFunction) {
+                props.ParticleFunction(p)
+            } else {
+                p.colourlist = props.ColourList
+                p.size = 3 + Math.random() * 6;
+                p.life = 2500 + Math.random() * 100;
+            }
+            
+            p.color = p.colourlist[Math.floor(Math.random() * p.colourlist.length)];
+
             return p;
         }
 
@@ -97,8 +104,8 @@ export default function ParticleCanvas(props) {
                     continue;
                 }
 
-                p.vx *= 0.995;
-                p.vy *= 0.995;
+                p.vx *= 0.999;
+                p.vy *= 0.999;
                 p.x += p.vx * (Dt/16);
                 p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
 

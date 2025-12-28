@@ -1,15 +1,21 @@
 import './Menu.css'
 
+const MenuButtons = [
+  {Text: "snake", PageName: "snake", Id: "SnakeMenuButton"},
+  {Text: "bunny", PageName: "bunny", Id: "BunnyMenuButton"},
+  {Text: "bug", PageName: "bug", Id: "BugMenuButton"},
+  {Text: "fish", PageName: "fish", Id: "FishMenuButton"}
+]
+
 function Menu({ setPageFunction }) {
   return (
     <div id='Menu'>
         <h1 id='MenuTitle'>partycles</h1>
         <p id="MenuDesc">party in the front, physics in the back ;D</p>
         <div id='MenuButtons'>
-            <button className='MenuButton' id='SnakeMenuButton' onClick={() => setPageFunction("snake")}>snake</button>
-            <button className='MenuButton' id='BunnyMenuButton' onClick={() => setPageFunction("bunny")}>bunny</button>
-            <button className='MenuButton' id='BugMenuButton' onClick={() => setPageFunction("bug")}>bug</button>
-            <button className='MenuButton' id='FishMenuButton' onClick={() => setPageFunction("fish")}>fish</button>
+            {MenuButtons.map((Button, i) => (
+              <button key={i} className='MenuButton' id={Button.Id} onClick={setPageFunction(Button.PageName)}>{Button.Text}</button>
+            ))}
         </div>
     </div>
   )

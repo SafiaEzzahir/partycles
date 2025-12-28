@@ -73,24 +73,29 @@ export function FishPage(props) {
     const ParticlesList = [
         {
             Particle: "RectangleGoldfishParticle",
-            Colour: ["#ff9b10"],
+            Colour: ["#D76B00"],
             Life: 5000,
-            Size: (5 + Math.random() * 6),
-            Shape: {name: "rectangle", sfx: 0.8, sfy: 1.2}
+            Size: (10 + Math.random() * 6),
+            Shape: {name: "rectangle", sfx: 0.6, sfy: 1.6}
         },
         {
             Particle: "EllipticGoldfishParticle",
-            Colour: ["#ff9b10"],
+            Colour: ["#D76B00"],
             Life: 5000,
-            Size: (6 + Math.random() * 6),
-            Shape: {name: "ellipse", rx: 1.6, ry: 0.9}
+            Size: (15 + Math.random() * 6),
+            // randomise radii a bit
+            // mostly horizontal swimming
+            // affects direction of water, when still gets affected by direction of water
+            // water, when affected by wind strongly enough, affects fish
+            // toggle wind particles
+            Shape: {name: "ellipse", rx: 1.6, ry: 0.6}
         },
         {
             Particle: "WaterParticle",
-            Colour: ["#0b5cf1", "#3fe2ed", "#1a7cecff"],
+            Colour: ["#137594", "#16677A", "#1BAAB8", "#38D4E3", "#AAF4FF", "#6FE2FF", "#55EBFF", "#52CACD"],
             Life: 3000,
-            Size: (2 + Math.random() * 6),
-            Shape: {name: "square"}
+            Size: (0.5 + Math.random() * 6),
+            Shape: {name: "circle"}
         }
     ]
 
@@ -108,14 +113,14 @@ export function BugPage(props) {
     const ParticlesList = [
         {
             Particle: "BigbugParticle",
-            Colour: ["#2d3223", "#373030", "#473312"],
+            Colour: ["#002800", "#3F0F0F", "#6B2E1A", "#801E1E", "#A34E2B", "#7B3540", "#ED1C24", "#006E2B"],
             Life: 4000,
             Size: (12 + Math.random() * 6),
             Shape: {name: "square"}
         },
         {
             Particle: "LittlebugParticle",
-            Colour: ["#98401d", "#510e0e"],
+            Colour: ["#ED1C24", "#FFA260", "#A68862", "#006E2B"],
             Life: 5000,
             Size: (3 + Math.random() * 6),
             Shape: {name: "square"}
@@ -136,7 +141,7 @@ export function BunnyPage(props) {
     const ParticlesList = [
         {
             Particle: "BabyBunny",
-            Colour: ["#ffcdfb", "#8ec4f0", "#ffffff", "#ffcdfb", "#8ec4f0", "#ffffff", "#adfab7", "#f5e6a0"],
+            Colour: ["#FF7289", "#7C72FF", "#DDDDDD", "#FF7289", "#7C72FF", "#DDDDDD", "#22B64E", "#FFC500", "#2AB4D9", "#2AB4D9"],
             Life: 8000,
             Size: (1.5 + Math.random() * 20),
             Shape: {name: "circle"}

@@ -55,8 +55,8 @@
     position: relative;
 }
 
-#SnakeMenuButton:hover{
-    animation: WibbleSnake 0.5s ease-in-out infinite both;
+.MenuButton:hover {
+    animation: WibbleSnake 0.5s infinite;
 }
 
 @keyframes WibbleSnake {
@@ -67,19 +67,8 @@
 }
 
 #BunnyMenuButton {
+    position: relative;
     background-color: #FF7289;
-}
-
-#BunnyMenuButton:hover {
-    animation: BunnyBounce 5s ease-in-out infinite both;
-}
-
-/* squish & move down a bit */
-@keyframes BunnyBounce {
-    0% { transform: translateY(0px) }
-    10% { transform: translateY(-5px); padding: 5px 35px; }
-    50% { transform: translateY(15px); margin: 5px; }
-    100% { transform: translateY(0px) }
 }
 
 #BugMenuButton {

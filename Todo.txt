@@ -1,21 +1,26 @@
 
 - Create main page with buttons to choose which animation
+
 - Design main page
     - Style main page ✅
     - Main page title ✅
     - Main page desc (party in the front, physics in the back XD) ✅
-    - Main page buttons
+    - Main page buttons 🟡
         - Snake button - wiggles like a snake 🟠
         - Fish button - flops like a fish 🟠
         - Bug button - scatters like bugs 🟠
         - Bunny button - hops like a bunny 🟠
-- Create base particle generation? 🟡
+
+- Create base particle generation? 🟠
     - base page ✅
     - base canvas ✅
     - base cursor particles & enablement with prop (true/false) 🟠
-    - allow for custom functions 🟠
-    - Customise particle colours
-    - Set up props for ParticleCanvas
+    - Set up props for ParticleCanvas 🟠
+        - allow for custom functions 🟠
+            - colour function & update colour function ✅
+    
+    - Add colour palette ✅
+
 - Choose colour palette for website ✅
     - (the same one i use all the time, dark background) ✅
 - Choose font for website
@@ -24,6 +29,7 @@
     - Save current page to sessionstorage every time it changes ✅
 - Change current page by clicking buttons ✅
 - Add back button to change current page back to menu ✅
+
 -------- IDEAS --------
 
 Snake Party
@@ -44,6 +50,8 @@ Fish Party
 Bunny Party
     - lots of babies
     - when 2 particles collide
+
+DIY??
 
 -------- COLOURS --------
 #002800

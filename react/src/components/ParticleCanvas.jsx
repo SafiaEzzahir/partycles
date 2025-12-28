@@ -53,7 +53,6 @@ export default function ParticleCanvas(props) {
             
             if (props.ParticleFunction) {
                 props.ParticleFunction(p)
-                console.log(p.size)
             } else {
                 p.colourlist = props.ColourList
                 p.size = 3 + Math.random() * 6;
@@ -97,7 +96,9 @@ export default function ParticleCanvas(props) {
 
             for (let i = Particles.length - 1; i >= 0; i--) {
                 const p = Particles[i];
+
                 if (p.custombehaviour) {
+                    console.log("custombehaviour")
                     p.custombehaviour(p)
                 } else {
                     p.age += Dt;
@@ -112,9 +113,9 @@ export default function ParticleCanvas(props) {
                     p.x += p.vx * (Dt/16);
                     p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
     
-                    const t = p.age / p.life;
-                    const alpha = 1 - t;
-                    const size = p.size * (1 - t * 0.8)
+                    var t = p.age / p.life;
+                    var alpha = 1 - t;
+                    var size = p.size * (1 - t * 0.8)
                     // ^^ determine alpha value for transparency and size based on age
                 }
 

@@ -72,11 +72,18 @@ export function FishPage(props) {
 
     const ParticlesList = [
         {
-            Particle: "GoldfishParticle",
+            Particle: "RectangleGoldfishParticle",
             Colour: ["#ff9b10"],
             Life: 5000,
             Size: (5 + Math.random() * 6),
-            Shape: {name: "rectangle", sfx: 1.2, sfy:0.8}
+            Shape: {name: "rectangle", sfx: 0.8, sfy: 1.2}
+        },
+        {
+            Particle: "EllipticGoldfishParticle",
+            Colour: ["#ff9b10"],
+            Life: 5000,
+            Size: (6 + Math.random() * 6),
+            Shape: {name: "ellipse", rx: 1.6, ry: 0.9}
         },
         {
             Particle: "WaterParticle",

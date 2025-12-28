@@ -122,7 +122,7 @@ export default function ParticleCanvas(props) {
                 Ctx.save();
                 Ctx.beginPath();
                 Ctx.fillStyle = p.color;
-                Ctx.globalAlpha = alpha;
+                Ctx.globalAlpha = alpha ?? 1;
                 Ctx.shadowColor = p.color;
                 Ctx.shadowBlur = 10;
 
@@ -132,6 +132,11 @@ export default function ParticleCanvas(props) {
                     Ctx.rect(p.x, p.y, (size*p.shape.sfy), (size*p.shape.sfx))
                 } else if (p.shape.name == "circle") {
                     Ctx.arc(p.x, p.y, size, 0, Math.PI * 2)
+                } else if (p.shape.name == "ellipse") {
+                    // calculate direction, angle ellipse in direction (matrices)
+                    // horizontal for now
+                    const rotation = 0
+                    Ctx.ellipse(p.x, p.y, size*(p.shape.rx), size*(p.shape.ry), rotation, 0, Math.PI * 2)
                 }
 
                 Ctx.stroke();

@@ -74,14 +74,14 @@ export function FishPage(props) {
         {
             Particle: "GoldfishParticle",
             Colour: ["#ff9b10"],
-            Life: 3000,
+            Life: 5000,
             Size: (5 + Math.random() * 6),
-            Shape: {name: "square"}
+            Shape: {name: "rectangle", sfx: 1.2, sfy:0.8}
         },
         {
             Particle: "WaterParticle",
             Colour: ["#0b5cf1", "#3fe2ed", "#1a7cecff"],
-            Life: 30000,
+            Life: 3000,
             Size: (2 + Math.random() * 6),
             Shape: {name: "square"}
         }

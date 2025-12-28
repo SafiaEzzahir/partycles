@@ -15,9 +15,10 @@
     - base page ✅
     - base canvas ✅
     - base cursor particles & enablement with prop (true/false) 🟠
-    - Set up props for ParticleCanvas 🟠
+    - Set up props for ParticleCanvas ✅
         - allow for custom functions 🟠
             - colour function & update colour function ✅
+            - update ChooseParticleType for other Pages 🟡
             - shape = "rectangle, x, y", "circle, radius", "square, length", "triangle, ?, ?"
     
     - Add colour palette ✅
@@ -34,7 +35,7 @@
 -------- IDEAS --------
 
 Snake Party
-    - colours: alternate 50/50 yellow & green, cursor one is green, permanent
+    - colours: alternate 50/50 yellow & green ✅ cursor one is pink, ✅ permanent
     - shapes: cursor particle is triangle, others are circles
     - add particles to your conga line
     - if they're close enough

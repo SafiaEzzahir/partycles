@@ -2,6 +2,12 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 import Menu from '../src/components/Menu.jsx'
+import SnakePage from './components/Page.jsx'
+import BunnyPage from './components/Page.jsx'
+import BugPage from './components/Page.jsx'
+import FishPage from './components/Page.jsx'
+
+const PagesToReturn = {'snake': SnakePage, 'bunny': BunnyPage, 'bug': BugPage, 'fish': FishPage}
 
 function App() {
   const [CurrentPage, setCurrentPage] = useState('')
@@ -23,6 +29,9 @@ function App() {
         <Menu setPageFunction={setCurrentPage}/>
       </div>
     )
+  } else if (PagesToReturn[CurrentPage]) {
+    const PageToReturn = PagesToReturn[CurrentPage]
+    return <PageToReturn />
   } else {
     return (
       <div>

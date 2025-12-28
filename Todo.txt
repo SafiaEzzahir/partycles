@@ -20,6 +20,10 @@
             - colour function & update colour function ✅
             - update ChooseParticleType for other Pages 🟡
             - shape = "rectangle, x, y", "circle, radius", "square, length", "triangle, ?, ?"
+                - add shape attribute to ParticlesList
+                - add custom behaviour to ParticlesList
+                - add opacity function to ParticlesList
+                - add shadow & blur to ParticlesList
     
     - Add colour palette ✅
 

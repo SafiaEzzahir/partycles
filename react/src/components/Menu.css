@@ -34,6 +34,16 @@
     padding-top: 25px;
     font-weight: 800;
     letter-spacing: 8px;
+    animation: ColourChange 10s infinite both;
+}
+
+@keyframes ColourChange {
+    16.6% { color: white}
+    33.3% { color: #FF7289 }
+    50% { color: #D76B00 }
+    66.6% { color: #FFC500 }
+    83.3% { color: #22B64E }
+    100% { color: white }
 }
 
 #MenuDesc {
@@ -41,7 +51,7 @@
 }
 
 #SnakeMenuButton {
-    background-color: green;
+    background-color: #22B64E;
     position: relative;
 }
 
@@ -57,7 +67,7 @@
 }
 
 #BunnyMenuButton {
-    background-color: pink;
+    background-color: #FF7289;
 }
 
 #BunnyMenuButton:hover {
@@ -73,11 +83,11 @@
 }
 
 #BugMenuButton {
-    background-color: khaki;
+    background-color: #FFC500;
 }
 
 #FishMenuButton {
-    background-color: orange;
+    background-color: #D76B00;
 }
 
 button {

@@ -1,160 +1,159 @@
-import { useRef, useEffect } from 'react';
+import ParticleCanvas from '../components/ParticleCanvas.jsx';
+import './Menu.css'
 
-import '../components/ParticleCanvas.css';
+function Page(props) {
 
-// props -> ColourPalette ✅ CustomFunctions (= [function]), ParticleSize, ParticleLife <-- include randomness, MaxParticles, OnMoveFunction
-// add mouse-following particles
+    function CustomBehaviour(p) {
+        console.log(p)
+    }
 
-export default function ParticleCanvas(props) {
+    function ChooseParticleType(p) {
+        const ParticleList = props.ParticleList
+        
+        /* ADD RANDOMNESS individually AND here */
+        /* can i make this function a template? yes i can!! */
+        /* takes: ParticleList
+            then I can use UI to update this component
+            that's what the attributes of the particles in ParticleList
+        */
 
-    const CanvasRef = useRef(null);
-    const ParticlesRef = useRef([]);
+        const ParticleChoice = ParticleList[Math.floor(Math.random() * ParticleList.length)]
 
-    // poolref is for reusing particles
-    const PoolRef = useRef([]);
-    const RafRef = useRef(null);
-
-    // idk if i need this
-    const LastTimeRef = useRef(performance.now());
-
-    useEffect(() => {
-        const Canvas = CanvasRef.current;
-
-        if (!Canvas) return;
-
-        const Ctx = Canvas.getContext('2d');
-        let Dpr = window.devicePixelRatio || 1;
-
-        function resize() {
-            Dpr = window.devicePixelRatio || 1;
-
-            Canvas.width = Math.max(1, innerWidth*Dpr);
-            Canvas.height = Math.max(1, innerHeight*Dpr);
-
-            Canvas.style.width = innerWidth + 'px';
-            Canvas.style.height = innerHeight + 'px';
-
-            Ctx.setTransform(Dpr, 0, 0, Dpr, 0, 0);
-        }
-
-        resize();
-        SpawnParticle(55);
-        window.addEventListener('resize', resize)
-
-        function CreateParticle(x, y, vx, vy) {
-            let p = PoolRef.current.pop()
-            if (!p) p = {};
-
-            p.x = x;
-            p.y = y;
-            p.vx = vx;
-            p.vy = vy;
-            p.age = 0;
-            
-            if (props.ParticleFunction) {
-                props.ParticleFunction(p)
-            } else {
-                p.colourlist = props.ColourList
-                p.size = 3 + Math.random() * 6;
-                p.life = 2500 + Math.random() * 100;
-            }
-            
-            p.color = p.colourlist[Math.floor(Math.random() * p.colourlist.length)];
-
-            return p;
-        }
-
-        function SpawnParticle(count, lastX, lastY) {
-            for (let i = 0; i < count; i++) {
-                const x = Math.random() * (Canvas.width - Dpr/5);
-                const y = Math.random() * (Canvas.height - Dpr/5);
-
-                const angle = Math.atan2(y - (lastY ?? y) + (Math.random() - 0.5) * 1.2, x - (lastX ?? x) + (Math.random() - 0.5) * 1.2);
-                const speed = 0.05 + Math.random() * 1.2;
-                const vx = Math.cos(angle) * speed;
-                const vy = Math.sin(angle) * speed;
-
-                const p = CreateParticle(x + (Math.random() - 0.5) * 6, y + (Math.random() - 0.5) * 6, vx, vy);
-
-                ParticlesRef.current.push(p);
-
-                // 60 is max particles
-                if (PoolRef.current.length > 55) {
-                    const removed = ParticlesRef.current.shift();
-                    PoolRef.current.push(removed);
-                }
-            }
-        }
-
-        function Update(now) {
-            const Dt = Math.min(50, now - LastTimeRef.current);
-
-            LastTimeRef.current = now;
-            const Particles = ParticlesRef.current;
-            
-            Ctx.clearRect(0, 0, Canvas.width/Dpr, Canvas.height/Dpr);
-
-            for (let i = Particles.length - 1; i >= 0; i--) {
-                const p = Particles[i];
-
-                if (p.custombehaviour) {
-                    console.log("custombehaviour")
-                    p.custombehaviour(p)
-                } else {
-                    p.age += Dt;
-                    if (p.age >= p.life) {
-                        Particles.splice(i, 1);
-                        PoolRef.current.push(p);
-                        SpawnParticle(1)
-                        continue;
-                    }
-                    p.vx *= 0.999;
-                    p.vy *= 0.999;
-                    p.x += p.vx * (Dt/16);
-                    p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
-    
-                    var t = p.age / p.life;
-                    var alpha = 1 - t;
-                    var size = p.size * (1 - t * 0.8)
-                    // ^^ determine alpha value for transparency and size based on age
-                }
-
-                Ctx.save();
-                Ctx.beginPath();
-                Ctx.fillStyle = p.color;
-                Ctx.globalAlpha = alpha ?? 1;
-                Ctx.shadowColor = p.color;
-                Ctx.shadowBlur = 10;
-
-                if (p.shape.name == "square") {
-                    Ctx.rect(p.x, p.y, size, size);
-                } else if (p.shape.name == "rectangle") {
-                    Ctx.rect(p.x, p.y, (size*p.shape.sfy), (size*p.shape.sfx))
-                } else if (p.shape.name == "circle") {
-                    Ctx.arc(p.x, p.y, size, 0, Math.PI * 2)
-                } else if (p.shape.name == "ellipse") {
-                    // calculate direction, angle ellipse in direction (matrices)
-                    // horizontal for now
-                    const rotation = 0
-                    Ctx.ellipse(p.x, p.y, size*(p.shape.rx), size*(p.shape.ry), rotation, 0, Math.PI * 2)
-                }
-
-                Ctx.stroke();
-                Ctx.fill();
-                Ctx.restore();
-            }
-            RafRef.current = requestAnimationFrame(Update);
-        }
-        RafRef.current = requestAnimationFrame(Update);
-
-        return () => {
-            window.removeEventListener('resize', resize);
-            ParticlesRef.current = [];
-            PoolRef.current = []
-        }
-    }, [props]);
+        p.size = ParticleChoice.Size
+        p.type = ParticleChoice.Particle
+        p.life = ParticleChoice.Life
+        p.colourlist = ParticleChoice.Colour
+        p.shape = ParticleChoice.Shape
+        
+    }
 
     return (
-        <canvas ref={CanvasRef} className='ParticleCanvas'></canvas>
+        <div>
+            <ParticleCanvas
+                ParticleFunction={ChooseParticleType}
+            />
+
+            <button className="BackButton" onClick={() => {sessionStorage.setItem("CurrentPage", "menu"); props.setPageFunction("menu");}}>back</button>
+            <p>this page has been created! yay!! i love {props.animal}!!!</p>
+        </div>
     )
-};
+}
+
+export default function SnakePage(props) {
+    /* needs a custom function to detect what colour and add to snake -> custom behaviour function uses particle.type */
+    /* how do i make the CursorParticle immortal + keep speed + randomness + follow the mouse */
+
+    const ParticlesList = [
+        {
+            Particle: "CursorParticle",
+            Colour: ["#FF007B"],
+            Life: 10500,
+            Size: (10 + Math.random() * 6),
+            Shape: {name: "square"}
+        },
+        {
+            Particle: "FloatingParticle",
+            Colour: ["#22B64E", "#22B64E", "#22B64E", "#006E2B", "#FFC500", "#FFC500"],
+            Life: 3000,
+            Size: (5 + Math.random() * 6),
+            Shape: {name: "square"}
+        }
+    ]
+
+    return (
+        <Page 
+            animal="snake"
+            setPageFunction={props.setPageFunction}
+            ParticleList={ParticlesList}
+        />
+    )
+}
+
+export function FishPage(props) {
+
+    const ParticlesList = [
+        {
+            Particle: "RectangleGoldfishParticle",
+            Colour: ["#D76B00"],
+            Life: 5000,
+            Size: (10 + Math.random() * 6),
+            Shape: {name: "rectangle", sfx: 0.6, sfy: 1.6}
+        },
+        {
+            Particle: "EllipticGoldfishParticle",
+            Colour: ["#D76B00"],
+            Life: 5000,
+            Size: (15 + Math.random() * 6),
+            // randomise radii a bit
+            // mostly horizontal swimming
+            // affects direction of water, when still gets affected by direction of water
+            // water, when affected by wind strongly enough, affects fish
+            // toggle wind particles
+            Shape: {name: "ellipse", rx: 1.6, ry: 0.6}
+        },
+        {
+            Particle: "WaterParticle",
+            Colour: ["#137594", "#16677A", "#1BAAB8", "#38D4E3", "#AAF4FF", "#6FE2FF", "#55EBFF", "#52CACD"],
+            Life: 3000,
+            Size: (0.5 + Math.random() * 6),
+            Shape: {name: "circle"}
+        }
+    ]
+
+    return (
+        <Page
+            animal="fish"
+            setPageFunction={props.setPageFunction}
+            ParticleList={ParticlesList}
+        />
+    )
+}
+
+export function BugPage(props) {
+
+    const ParticlesList = [
+        {
+            Particle: "BigbugParticle",
+            Colour: ["#002800", "#3F0F0F", "#6B2E1A", "#801E1E", "#A34E2B", "#7B3540", "#ED1C24", "#006E2B"],
+            Life: 4000,
+            Size: (12 + Math.random() * 6),
+            Shape: {name: "square"}
+        },
+        {
+            Particle: "LittlebugParticle",
+            Colour: ["#ED1C24", "#FFA260", "#A68862", "#006E2B"],
+            Life: 5000,
+            Size: (3 + Math.random() * 6),
+            Shape: {name: "square"}
+        }
+    ]
+
+    return (
+        <Page
+            animal="bug"
+            setPageFunction={props.setPageFunction}
+            ParticleList={ParticlesList}
+        />
+    )
+}
+
+export function BunnyPage(props) {
+
+    const ParticlesList = [
+        {
+            Particle: "BabyBunny",
+            Colour: ["#FF7289", "#7C72FF", "#DDDDDD", "#FF7289", "#7C72FF", "#DDDDDD", "#22B64E", "#FFC500", "#2AB4D9", "#2AB4D9"],
+            Life: 8000,
+            Size: (1.5 + Math.random() * 20),
+            Shape: {name: "circle"}
+        }
+    ]
+
+    return (
+        <Page
+            animal="bunny"
+            setPageFunction={props.setPageFunction}
+            ParticleList={ParticlesList}
+        />
+    )
+}

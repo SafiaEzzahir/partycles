@@ -185,7 +185,7 @@ export function BunnyPage(props) {
             Particle: "BabyBunny",
             Colour: ["#FF7289", "#7C72FF", "#DDDDDD", "#FF7289", "#7C72FF", "#DDDDDD", "#22B64E", "#FFC500", "#2AB4D9", "#2AB4D9"],
             Life: 8000,
-            Size: 1.5,
+            Size: 10,
             Shape: {name: "circle"}
         }
     ]

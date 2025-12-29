@@ -15,19 +15,23 @@ function Page(props) {
         /* add randomness HERE */
 
         const ParticleChoice = ParticleList[Math.floor(Math.random() * ParticleList.length)]
-
+        
         p.size = (ParticleChoice.Size + Math.random() * 6)
         p.type = ParticleChoice.Particle
         p.life = (ParticleChoice.Life + Math.random() * 6)
         p.colourlist = ParticleChoice.Colour
         p.shape = ParticleChoice.Shape
+        
+        if (ParticleChoice.CustomInit) {
+            ParticleChoice.CustomInit(p)
+        }
 
         if (p.shape.rx) {
-            p.shape.rx += Math.random()-0.5;
-            p.shape.ry += Math.random()-0.5;
+            p.shape.rx += Math.random()*0.03;
+            p.shape.ry += Math.random()*0.03;
         } else if (p.shape.sfx) {
-            p.shape.sfx += Math.random()-0.5;
-            p.shape.sfy += Math.random()-0.5;
+            p.shape.sfx += Math.random()*0.1;
+            p.shape.sfy += Math.random()*0.3;
         }
         
     }
@@ -106,11 +110,16 @@ export function FishPage(props) {
         }
     ]
 
+    function CustomInitFunc(p) {
+        p.angle = Math.atan2((Math.random() - 0.5) * 0.5, (Math.random() - 0.5) * 1.2)
+    }
+
     return (
         <Page
             desc="very abstract ocean simulation (use your imagination ;D)"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
+            CustomInit={CustomInitFunc}
         />
     )
 }

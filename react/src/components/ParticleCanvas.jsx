@@ -14,7 +14,7 @@ export default function ParticleCanvas(props) {
     const PoolRef = useRef([]);
     const RafRef = useRef(null);
 
-    const CursorParticle = useRef(null)
+    const CursorParticle = useRef({})
     // idk if i need this
     const LastTimeRef = useRef(performance.now());
 
@@ -102,16 +102,11 @@ export default function ParticleCanvas(props) {
         }
 
         function SpawnCursorParticle(x, y) {
-            const p = CreateParticle(null, null)
-
-            p.x = x
-            p.y = y
-            p.type = "CursorParticle"
-            p.color = "#FF007B"
-            p.life = 1
-            console.log(p)
-
-            CursorParticle.current = p
+            CursorParticle.current.x = x
+            CursorParticle.current.y = y
+            CursorParticle.current.type = "CursorParticle"
+            CursorParticle.current.color = "#FF007B"
+            CursorParticle.current.life = 1
         }
 
         function Update(now) {
@@ -170,26 +165,25 @@ export default function ParticleCanvas(props) {
                     Ctx.ellipse(p.x, p.y, size*p.shape.rx, size*p.shape.ry, rotation, 0, Math.PI * 2)
                 }
 
-                /*Ctx.stroke();
-                Ctx.fill();
-                Ctx.restore();*/
-
-
-                if (CursorParticle) {
-                    Ctx.save()
-
-                    Ctx.beginPath();
-                    Ctx.fillStyle = CursorParticle.color;
-                    Ctx.globalAlpha = 1;
-                    Ctx.shadowColor = p.color;
-                    Ctx.shadowBlur = 10;
-
-                    Ctx.rect(p.x, p.y, p.size, p.size);
-                }
                 Ctx.stroke();
                 Ctx.fill();
                 Ctx.restore();
+
             }
+            if (CursorParticle) {
+                Ctx.save()
+                Ctx.beginPath();
+                console.log(CursorParticle.current)
+                Ctx.fillStyle = CursorParticle.current.color;
+                Ctx.globalAlpha = 1;
+                Ctx.shadowColor = CursorParticle.current.color;
+                Ctx.shadowBlur = 10;
+            
+                Ctx.rect(CursorParticle.current.x, CursorParticle.current.y, 15, 15);
+            }
+            Ctx.stroke();
+            Ctx.fill();
+            Ctx.restore();
             RafRef.current = requestAnimationFrame(Update);
         }
         RafRef.current = requestAnimationFrame(Update);

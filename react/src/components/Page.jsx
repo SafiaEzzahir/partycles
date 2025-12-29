@@ -126,6 +126,7 @@ export function BugPage(props) {
         // add back the border
         p.x = MaxX * Math.random() + BorderX
         p.y = MaxY * Math.random() + BorderY
+        p.speed = 32 + Math.random() * 8
     }
 
     const ParticlesList = [
@@ -133,7 +134,7 @@ export function BugPage(props) {
             Particle: "BigbugParticle",
             Colour: ["#002800", "#3F0F0F", "#6B2E1A", "#801E1E", "#A34E2B", "#7B3540", "#ED1C24", "#006E2B"],
             Life: 10100,
-            Size: 12,
+            Size: 18,
             Shape: {name: "square"},
             CustomInit: CustomInitFunction
         },
@@ -141,8 +142,8 @@ export function BugPage(props) {
             Particle: "LittlebugParticle",
             Colour: ["#ED1C24", "#FFA260", "#A68862", "#006E2B"],
             Life: 10100,
-            Size: 3,
-            Shape: {name: "square"},
+            Size: 1.5,
+            Shape: {name: "circle"},
             CustomInit: CustomInitFunction
         }
     ]

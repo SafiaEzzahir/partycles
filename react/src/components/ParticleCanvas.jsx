@@ -62,6 +62,7 @@ export default function ParticleCanvas(props) {
             p.y = Math.random() * (Canvas.height - Dpr/5);
             p.age = 0;
             p.angle = Math.atan2(p.y - (lastY ?? p.y) + (Math.random() - 0.5) * 1.2, p.x - (lastX ?? p.x) + (Math.random() - 0.5) * 1.2);
+            const speed = 0.05 + Math.random() * 1.2;
             
             if (props.ParticleFunction) {
                 props.ParticleFunction(p, Canvas.width / Dpr, Canvas.height / Dpr)
@@ -71,7 +72,6 @@ export default function ParticleCanvas(props) {
                 p.life = 2500 + Math.random() * 100;
             }
             
-            const speed = 0.05 + Math.random() * 1.2;
             p.vx = Math.cos(p.angle) * speed;
             p.vy = Math.sin(p.angle) * speed;
             

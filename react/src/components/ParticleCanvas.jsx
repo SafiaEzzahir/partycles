@@ -7,49 +7,45 @@ import '../components/ParticleCanvas.css';
 
 export default function ParticleCanvas(props) {
 
-    
     const CanvasRef = useRef(null);
     const ParticlesRef = useRef([]);
-    
+
     // poolref is for reusing particles
     const PoolRef = useRef([]);
     const RafRef = useRef(null);
-    
+
     const CursorParticle = useRef({})
     // idk if i need this
     const LastTimeRef = useRef(performance.now());
-    
-    
+
     useEffect(() => {
-        const GridSize = 40;
-        let SpatialGrid = new Map()
         const Canvas = CanvasRef.current;
-        
+
         if (!Canvas) return;
-        
+
         const Ctx = Canvas.getContext('2d');
         let Dpr = window.devicePixelRatio || 1;
-        
+
         function resize() {
             Dpr = window.devicePixelRatio || 1;
-            
+
             Canvas.width = Math.max(1, innerWidth*Dpr);
             Canvas.height = Math.max(1, innerHeight*Dpr);
-            
+
             Canvas.style.width = innerWidth + 'px';
             Canvas.style.height = innerHeight + 'px';
-            
+
             Ctx.setTransform(Dpr, 0, 0, Dpr, 0, 0);
         }
-        
+
         function onMove(e) {
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             const y = e.touches ? e.touches[0].clientY : e.clientY;
-            
+
             SpawnCursorParticle(x, y)
-            
+
         }
-        
+
         resize();
         SpawnParticle(55);
         window.addEventListener('resize', resize)
@@ -57,7 +53,7 @@ export default function ParticleCanvas(props) {
             window.addEventListener('mousemove', onMove)
             window.addEventListener('touchmove', onMove)
         }
-        
+
         function CreateParticle(lastX, lastY) {
             let p = PoolRef.current.pop()
             if (!p) p = {};
@@ -82,37 +78,10 @@ export default function ParticleCanvas(props) {
             p.life = p.life ?? Math.random() * 1000
             
             p.color = p.colourlist[Math.floor(Math.random() * p.colourlist.length)];
-            
-            if (p.type === "BabyBunny") {
-                p.canCollide = true;
-            }
 
             return p;
         }
-        
-        function BunnyExplostion(x, y) {
-            const count = 3;
-    
-            for (let i = 0; i < count; i++) {
-                const p = CreateParticle(x, y)
-    
-                p.x = x;
-                p.y = y;
-                p.type = "BabyBunny";
-        
-                const angle = Math.random() * Math.PI * 2;
-                const speed = 0.5 + Math.random() * 2;
-        
-                p.vx = Math.cos(angle) * speed;
-                p.vy = Math.sin(angle) * speed - 1.2;
-        
-                p.life *= 0.9;
-                p.size *= 0.9;
-        
-                ParticlesRef.current.push(p)
-            }
-        }
-        
+
         function SpawnParticle(count, lastX, lastY) {
             for (let i = 0; i < count; i++) {
 
@@ -143,52 +112,6 @@ export default function ParticleCanvas(props) {
             const Particles = ParticlesRef.current;
             
             Ctx.clearRect(0, 0, Canvas.width/Dpr, Canvas.height/Dpr);
-
-            SpatialGrid.clear();
-            
-            for (const p of Particles) {
-                if (p.type !== "BabyBunny") continue;
-
-                const gx = Math.floor(p.x / GridSize);
-                const gy = Math.floor(p.y / GridSize);
-                const key = gx + ',' + gy;
-
-                if (!SpatialGrid.has(key)) {
-                    SpatialGrid.set(key, []);
-                }
-
-                SpatialGrid.get(key).push(p);
-            }
-
-            for (const cell of SpatialGrid.values()) {
-                const len = cell.length;
-                if (len < 2) continue;
-
-                for (let i = 0; i < len; i++) {
-                    const a = cell[i];
-                    if (!a.canCollide) continue;
-
-                    for (let j = i + 1; j < len; j++) {
-                        const b = cell[j];
-                        if (!b.canCollide) continue;
-                        
-                        const dx = a.x - b.x;
-                        const dy = a.y - b.y;
-                        const minDist = (a.size + b.size) * 0.6;
-
-                        if (dx * dx + dy * dy < minDist * minDist) {
-                            BunnyExplostion(
-                                (a.x + b.x) / 2,
-                                (a.y + b.y) / 2
-                            );
-
-                            a.canCollide = false;
-                            b.canCollide = false;
-                            break;
-                        }
-                    }
-                }
-            }
 
             for (let i = Particles.length - 1; i >= 0; i--) {
                 const p = Particles[i];

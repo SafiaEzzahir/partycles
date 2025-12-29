@@ -192,7 +192,7 @@ export function BunnyPage(props) {
 
     return (
         <Page
-            desc="baby bunnies can't stop appearing !!"
+            desc="they might not look like bunnies, but I promise they are!!"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
         />

@@ -48,7 +48,7 @@
 
 Snake Party
     - colours: alternate 50/50 yellow & green ✅ cursor one is pink, ✅ permanent
-    - shapes: cursor particle is triangle, others are squares 🟠
+    - shapes: cursor particle is square, others are squares, everything is a square, everyone is a square ✅
     - add particles to your conga line
     - if they're close enough
     - particles die and respawn outside of conga line
@@ -60,7 +60,7 @@ Bug Party
     - bugs under a rock 🟡
         - custom spawn function - spawn in the center square of screen (take in width & height - scaled with dpr)
         - direction = find closest side to particle
-        - more bugs spawn in the middle (slowly)
+        - more bugs spawn in the middle  ✅(slowly)
         - fade in (increase alpha value)
         - then start moving (count alpha value, move when reach [num] - +randomness ofc)
 

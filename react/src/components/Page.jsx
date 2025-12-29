@@ -78,14 +78,14 @@ export function FishPage(props) {
             Particle: "RectangleGoldfishParticle",
             Colour: ["#D76B00"],
             Life: 5000,
-            Size: 10,
+            Size: 9,
             Shape: {name: "rectangle", sfx: 0.6, sfy: 1.6}
         },
         {
             Particle: "EllipticGoldfishParticle",
             Colour: ["#D76B00"],
             Life: 5000,
-            Size: 15,
+            Size: 10,
             // affects direction of water, when still gets affected by direction of water
             // water, when affected by wind strongly enough, affects fish
             // toggle wind particles

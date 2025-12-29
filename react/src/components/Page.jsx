@@ -69,7 +69,7 @@ export default function SnakePage(props) {
 
     return (
         <Page 
-            text="snake-themed particles vaguely inspired by the retro game 'snake' (crazy, i know)"
+            desc="snake-themed particles vaguely inspired by the retro game 'snake' (crazy, i know)"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
         />

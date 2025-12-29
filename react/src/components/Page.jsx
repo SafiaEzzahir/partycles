@@ -5,11 +5,7 @@ import './Menu.css'
 
 function Page(props) {
 
-    function CustomBehaviour(p) {
-        console.log(p)
-    }
-
-    function ChooseParticleType(p) {
+    function ChooseParticleType(p, width, height) {
         const ParticleList = props.ParticleList
         
         /* add randomness HERE */
@@ -18,12 +14,12 @@ function Page(props) {
         
         p.size = (ParticleChoice.Size + Math.random() * 6)
         p.type = ParticleChoice.Particle
-        p.life = (ParticleChoice.Life + Math.random() * 20)
+        p.life = (ParticleChoice.Life + (Math.random()-0.5) * 100)
         p.colourlist = ParticleChoice.Colour
         p.shape = ParticleChoice.Shape
         
         if (ParticleChoice.CustomInit) {
-            ParticleChoice.CustomInit(p)
+            ParticleChoice.CustomInit(p, width, height)
         }
 
         if (p.shape.rx) {
@@ -90,7 +86,6 @@ export function FishPage(props) {
             Colour: ["#D76B00"],
             Life: 5000,
             Size: 15,
-            // mostly horizontal swimming 🟡
             // affects direction of water, when still gets affected by direction of water
             // water, when affected by wind strongly enough, affects fish
             // toggle wind particles
@@ -121,20 +116,34 @@ export function FishPage(props) {
 
 export function BugPage(props) {
 
+    function CustomInitFunction(p, width, height) {
+        // subtract 2* border from x and y
+        const BorderX = 200
+        const BorderY = 200
+        const MaxX = width - BorderX*2
+        const MaxY = height - BorderY*2
+        // multiply by random
+        // add back the border
+        p.x = MaxX * Math.random() + BorderX
+        p.y = MaxY * Math.random() + BorderY
+    }
+
     const ParticlesList = [
         {
             Particle: "BigbugParticle",
             Colour: ["#002800", "#3F0F0F", "#6B2E1A", "#801E1E", "#A34E2B", "#7B3540", "#ED1C24", "#006E2B"],
-            Life: 4000,
+            Life: 10100,
             Size: 12,
-            Shape: {name: "square"}
+            Shape: {name: "square"},
+            CustomInit: CustomInitFunction
         },
         {
             Particle: "LittlebugParticle",
             Colour: ["#ED1C24", "#FFA260", "#A68862", "#006E2B"],
-            Life: 5000,
+            Life: 10100,
             Size: 3,
-            Shape: {name: "square"}
+            Shape: {name: "square"},
+            CustomInit: CustomInitFunction
         }
     ]
 

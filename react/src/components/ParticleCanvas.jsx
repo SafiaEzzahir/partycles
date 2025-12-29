@@ -57,23 +57,19 @@ export default function ParticleCanvas(props) {
         function CreateParticle(lastX, lastY) {
             let p = PoolRef.current.pop()
             if (!p) p = {};
-            if (props.ParticleFunction) {
-                props.ParticleFunction(p)
-            } else {
-                p.colourlist = props.ColourList
-                p.size = 3 + Math.random() * 6;
-                p.life = 2500 + Math.random() * 100;
-            }
-
+            
             p.x = Math.random() * (Canvas.width - Dpr/5);
             p.y = Math.random() * (Canvas.height - Dpr/5);
             p.age = 0;
             p.angle = Math.atan2(p.y - (lastY ?? p.y) + (Math.random() - 0.5) * 1.2, p.x - (lastX ?? p.x) + (Math.random() - 0.5) * 1.2);
             
-            if (p.initfunction) {
-                p.initfunction(p, Canvas.width / Dpr, Canvas.height / Dpr)
+            if (props.ParticleFunction) {
+                props.ParticleFunction(p, Canvas.width / Dpr, Canvas.height / Dpr)
+            } else {
+                p.colourlist = props.ColourList
+                p.size = 3 + Math.random() * 6;
+                p.life = 2500 + Math.random() * 100;
             }
-            
             
             const speed = 0.05 + Math.random() * 1.2;
             p.vx = Math.cos(p.angle) * speed;
@@ -121,6 +117,7 @@ export default function ParticleCanvas(props) {
                 const p = Particles[i];
 
                 let size = p.size
+                let t = 0
 
                 if (p.custombehaviour) {
                     p.custombehaviour(p)
@@ -137,7 +134,7 @@ export default function ParticleCanvas(props) {
                     p.x += p.vx * (Dt/16);
                     p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
                     
-                    var t = p.age / p.life;
+                    t = p.age / p.life;
                     size = p.size * (1 - t * 0.8)
     
                     // ^^ determine alpha value for transparency and size based on age
@@ -170,10 +167,11 @@ export default function ParticleCanvas(props) {
                 Ctx.restore();
 
             }
-            if (CursorParticle) {
+
+            const cursedpart = CursorParticle.current;
+            if (cursedpart && cursedpart.x != null) {
                 Ctx.save()
                 Ctx.beginPath();
-                console.log(CursorParticle.current)
                 Ctx.fillStyle = CursorParticle.current.color;
                 Ctx.globalAlpha = 1;
                 Ctx.shadowColor = CursorParticle.current.color;
@@ -202,8 +200,3 @@ export default function ParticleCanvas(props) {
         <canvas ref={CanvasRef} className='ParticleCanvas'></canvas>
     )
 };
-
-/*
-
-
-*/

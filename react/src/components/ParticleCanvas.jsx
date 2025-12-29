@@ -14,7 +14,9 @@ export default function ParticleCanvas(props) {
     const PoolRef = useRef([]);
     const RafRef = useRef(null);
 
-    const CursorParticle = useRef({})
+    const SnakeTrainRef = useRef([]);
+
+    const CursorParticle = useRef({});
     // idk if i need this
     const LastTimeRef = useRef(performance.now());
 
@@ -42,12 +44,28 @@ export default function ParticleCanvas(props) {
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             const y = e.touches ? e.touches[0].clientY : e.clientY;
 
+            for (let i = 0; i < ParticlesRef.current.length; i ++) {
+                const p = ParticlesRef.current[i]
+                var NextColour = true
+
+                if (NextColour) {
+                    const dx = x - p.x;
+                    const dy = y - p.y;
+                    const distSq = dx * dx + dy * dy;
+
+                    const minDist = (15 + p.size) * 0.6;
+
+                    if (distSq < minDist * minDist) {
+                        SnakeTrainRef.current.push(p)
+                    }
+                }
+            }
             SpawnCursorParticle(x, y)
 
         }
 
         resize();
-        SpawnParticle(55);
+        SpawnParticle(50);
         window.addEventListener('resize', resize)
         if (props.CursorParticleOn) {
             window.addEventListener('mousemove', onMove)

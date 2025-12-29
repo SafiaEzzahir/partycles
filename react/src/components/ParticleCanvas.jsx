@@ -18,34 +18,35 @@ export default function ParticleCanvas(props) {
     // idk if i need this
     const LastTimeRef = useRef(performance.now());
 
+    
     useEffect(() => {
         const Canvas = CanvasRef.current;
-
+        
         if (!Canvas) return;
-
+        
         const Ctx = Canvas.getContext('2d');
         let Dpr = window.devicePixelRatio || 1;
-
+        
         function resize() {
             Dpr = window.devicePixelRatio || 1;
-
+            
             Canvas.width = Math.max(1, innerWidth*Dpr);
             Canvas.height = Math.max(1, innerHeight*Dpr);
-
+            
             Canvas.style.width = innerWidth + 'px';
             Canvas.style.height = innerHeight + 'px';
-
+            
             Ctx.setTransform(Dpr, 0, 0, Dpr, 0, 0);
         }
-
+        
         function onMove(e) {
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             const y = e.touches ? e.touches[0].clientY : e.clientY;
-
+            
             SpawnCursorParticle(x, y)
-
+            
         }
-
+        
         resize();
         SpawnParticle(55);
         window.addEventListener('resize', resize)
@@ -53,7 +54,7 @@ export default function ParticleCanvas(props) {
             window.addEventListener('mousemove', onMove)
             window.addEventListener('touchmove', onMove)
         }
-
+        
         function CreateParticle(lastX, lastY) {
             let p = PoolRef.current.pop()
             if (!p) p = {};
@@ -78,10 +79,33 @@ export default function ParticleCanvas(props) {
             p.life = p.life ?? Math.random() * 1000
             
             p.color = p.colourlist[Math.floor(Math.random() * p.colourlist.length)];
-
+            
             return p;
         }
-
+        
+        function BunnyExplostion(x, y) {
+            const count = 6 + Math.floor(Math.random() * 6);
+    
+            for (let i = 0; i < count; i++) {
+                const p = CreateParticle(x, y)
+    
+                p.x = x;
+                p.y = y;
+                p.type = "BabyBunny";
+        
+                const angle = Math.random() * Math.PI * 2;
+                const speed = 0.5 + Math.random() * 2;
+        
+                p.vx = Math.cos(angle) * speed;
+                p.vy = Math.sin(angle) * speed - 1.2;
+        
+                p.life *= 0.9;
+                p.size *= 0.9;
+        
+                ParticlesRef.current.push(p)
+            }
+        }
+        
         function SpawnParticle(count, lastX, lastY) {
             for (let i = 0; i < count; i++) {
 
@@ -112,6 +136,27 @@ export default function ParticleCanvas(props) {
             const Particles = ParticlesRef.current;
             
             Ctx.clearRect(0, 0, Canvas.width/Dpr, Canvas.height/Dpr);
+
+            for (let i = 0; i < Particles.length; i++) {
+                const a = Particles[i];
+                if (a.type !== "BabyBunny") continue;
+
+                for (let j = i+1; j < Particles.length; j++) {
+                    const b = Particles[j];
+                    if (b.type !== "BabyBunny") continue;
+
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distSq = dx * dx + dy * dy;
+
+                    const minDist = (a.size + b.size) * 0.6;
+
+                    if (distSq < minDist * minDist) {
+                        BunnyExplostion((a.x + b.x) / 2, (a.y + b.y) / 2);
+                        break;
+                    }
+                }
+            }
 
             for (let i = Particles.length - 1; i >= 0; i--) {
                 const p = Particles[i];

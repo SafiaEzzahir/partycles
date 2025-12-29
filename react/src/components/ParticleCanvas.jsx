@@ -7,19 +7,22 @@ import '../components/ParticleCanvas.css';
 
 export default function ParticleCanvas(props) {
 
+    
     const CanvasRef = useRef(null);
     const ParticlesRef = useRef([]);
-
+    
     // poolref is for reusing particles
     const PoolRef = useRef([]);
     const RafRef = useRef(null);
-
+    
     const CursorParticle = useRef({})
     // idk if i need this
     const LastTimeRef = useRef(performance.now());
-
+    
     
     useEffect(() => {
+        const GridSize = 40;
+        let SpatialGrid = new Map()
         const Canvas = CanvasRef.current;
         
         if (!Canvas) return;
@@ -80,11 +83,15 @@ export default function ParticleCanvas(props) {
             
             p.color = p.colourlist[Math.floor(Math.random() * p.colourlist.length)];
             
+            if (p.type === "BabyBunny") {
+                p.canCollide = true;
+            }
+
             return p;
         }
         
         function BunnyExplostion(x, y) {
-            const count = 6 + Math.floor(Math.random() * 6);
+            const count = 3;
     
             for (let i = 0; i < count; i++) {
                 const p = CreateParticle(x, y)
@@ -137,23 +144,48 @@ export default function ParticleCanvas(props) {
             
             Ctx.clearRect(0, 0, Canvas.width/Dpr, Canvas.height/Dpr);
 
-            for (let i = 0; i < Particles.length; i++) {
-                const a = Particles[i];
-                if (a.type !== "BabyBunny") continue;
+            SpatialGrid.clear();
+            
+            for (const p of Particles) {
+                if (p.type !== "BabyBunny") continue;
 
-                for (let j = i+1; j < Particles.length; j++) {
-                    const b = Particles[j];
-                    if (b.type !== "BabyBunny") continue;
+                const gx = Math.floor(p.x / GridSize);
+                const gy = Math.floor(p.y / GridSize);
+                const key = gx + ',' + gy;
 
-                    const dx = a.x - b.x;
-                    const dy = a.y - b.y;
-                    const distSq = dx * dx + dy * dy;
+                if (!SpatialGrid.has(key)) {
+                    SpatialGrid.set(key, []);
+                }
 
-                    const minDist = (a.size + b.size) * 0.6;
+                SpatialGrid.get(key).push(p);
+            }
 
-                    if (distSq < minDist * minDist) {
-                        BunnyExplostion((a.x + b.x) / 2, (a.y + b.y) / 2);
-                        break;
+            for (const cell of SpatialGrid.values()) {
+                const len = cell.length;
+                if (len < 2) continue;
+
+                for (let i = 0; i < len; i++) {
+                    const a = cell[i];
+                    if (!a.canCollide) continue;
+
+                    for (let j = i + 1; j < len; j++) {
+                        const b = cell[j];
+                        if (!b.canCollide) continue;
+                        
+                        const dx = a.x - b.x;
+                        const dy = a.y - b.y;
+                        const minDist = (a.size + b.size) * 0.6;
+
+                        if (dx * dx + dy * dy < minDist * minDist) {
+                            BunnyExplostion(
+                                (a.x + b.x) / 2,
+                                (a.y + b.y) / 2
+                            );
+
+                            a.canCollide = false;
+                            b.canCollide = false;
+                            break;
+                        }
                     }
                 }
             }

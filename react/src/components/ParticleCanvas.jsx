@@ -116,12 +116,12 @@ export default function ParticleCanvas(props) {
                     p.x += p.vx * (Dt/16);
                     p.y += p.vy * (Dt/16) + 0.2 * (Dt/16);
                     
+                    var t = p.age / p.life;
                     size = p.size * (1 - t * 0.8)
     
                     // ^^ determine alpha value for transparency and size based on age
                 }
                 
-                var t = p.age / p.life;
                 p.alpha = p.alpha ?? 1 - t;
                 
                 Ctx.save();
@@ -141,7 +141,7 @@ export default function ParticleCanvas(props) {
                     Ctx.arc(p.x, p.y, size, 0, Math.PI * 2)
                 } else if (p.shape.name == "ellipse") {
                     const rotation = Math.atan2(p.vy, p.vx) + (Math.random()-0.5)*0.5 // smooth
-                    Ctx.ellipse(p.x, p.y, size*(p.shape.rx), size*(p.shape.ry), rotation, 0, Math.PI * 2)
+                    Ctx.ellipse(p.x, p.y, size*p.shape.rx, size*p.shape.ry, rotation, 0, Math.PI * 2)
                 }
 
                 Ctx.stroke();

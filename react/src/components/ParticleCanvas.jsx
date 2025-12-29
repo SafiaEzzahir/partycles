@@ -14,6 +14,7 @@ export default function ParticleCanvas(props) {
     const PoolRef = useRef([]);
     const RafRef = useRef(null);
 
+    const CursorParticle = useRef(null)
     // idk if i need this
     const LastTimeRef = useRef(performance.now());
 
@@ -37,9 +38,21 @@ export default function ParticleCanvas(props) {
             Ctx.setTransform(Dpr, 0, 0, Dpr, 0, 0);
         }
 
+        function onMove(e) {
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const y = e.touches ? e.touches[0].clientY : e.clientY;
+
+            SpawnCursorParticle(x, y)
+
+        }
+
         resize();
         SpawnParticle(55);
         window.addEventListener('resize', resize)
+        if (props.CursorParticleOn) {
+            window.addEventListener('mousemove', onMove)
+            window.addEventListener('touchmove', onMove)
+        }
 
         function CreateParticle(lastX, lastY) {
             let p = PoolRef.current.pop()
@@ -86,6 +99,19 @@ export default function ParticleCanvas(props) {
                     PoolRef.current.push(removed);
                 }
             }
+        }
+
+        function SpawnCursorParticle(x, y) {
+            const p = CreateParticle(null, null)
+
+            p.x = x
+            p.y = y
+            p.type = "CursorParticle"
+            p.color = "#FF007B"
+            p.life = 1
+            console.log(p)
+
+            CursorParticle.current = p
         }
 
         function Update(now) {
@@ -144,6 +170,22 @@ export default function ParticleCanvas(props) {
                     Ctx.ellipse(p.x, p.y, size*p.shape.rx, size*p.shape.ry, rotation, 0, Math.PI * 2)
                 }
 
+                /*Ctx.stroke();
+                Ctx.fill();
+                Ctx.restore();*/
+
+
+                if (CursorParticle) {
+                    Ctx.save()
+
+                    Ctx.beginPath();
+                    Ctx.fillStyle = CursorParticle.color;
+                    Ctx.globalAlpha = 1;
+                    Ctx.shadowColor = p.color;
+                    Ctx.shadowBlur = 10;
+
+                    Ctx.rect(p.x, p.y, p.size, p.size);
+                }
                 Ctx.stroke();
                 Ctx.fill();
                 Ctx.restore();
@@ -154,6 +196,8 @@ export default function ParticleCanvas(props) {
 
         return () => {
             window.removeEventListener('resize', resize);
+            window.removeEventListener('touchmove', onMove);
+            window.removeEventListener('mousemove', onMove)
             ParticlesRef.current = [];
             PoolRef.current = [];
             cancelAnimationFrame(RafRef.current);

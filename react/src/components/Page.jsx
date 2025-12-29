@@ -18,7 +18,7 @@ function Page(props) {
         
         p.size = (ParticleChoice.Size + Math.random() * 6)
         p.type = ParticleChoice.Particle
-        p.life = (ParticleChoice.Life + Math.random() * 6)
+        p.life = (ParticleChoice.Life + Math.random() * 20)
         p.colourlist = ParticleChoice.Colour
         p.shape = ParticleChoice.Shape
         
@@ -40,6 +40,7 @@ function Page(props) {
         <div>
             <ParticleCanvas
                 ParticleFunction={ChooseParticleType}
+                CursorParticleOn={props.CursorParticle ? true : false}
             />
 
             <div className='PageContainer'>
@@ -56,13 +57,6 @@ export default function SnakePage(props) {
 
     const ParticlesList = [
         {
-            Particle: "CursorParticle",
-            Colour: ["#FF007B"],
-            Life: 10500,
-            Size: 10,
-            Shape: {name: "square"}
-        },
-        {
             Particle: "FloatingParticle",
             Colour: ["#22B64E", "#22B64E", "#22B64E", "#006E2B", "#FFC500", "#FFC500"],
             Life: 3000,
@@ -76,6 +70,7 @@ export default function SnakePage(props) {
             desc="snake-themed particles vaguely inspired by the retro game 'snake' (crazy, i know)"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
+            CursorParticle={true}
         />
     )
 }

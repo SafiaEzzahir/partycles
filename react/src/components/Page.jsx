@@ -127,7 +127,7 @@ export function FishPage(props) {
 
     return (
         <Page
-            desc="very abstract ocean simulation (use your imagination ;D)"
+            desc="very chaotic and abstract ocean simulation =D"
             setPageFunction={props.setPageFunction}
             ParticleList={ParticlesList}
             CustomInit={CustomInitFunc}

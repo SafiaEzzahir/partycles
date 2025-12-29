@@ -97,6 +97,27 @@ export function FishPage(props) {
             Life: 3000,
             Size: 0.5,
             Shape: {name: "circle"}
+        },
+        {
+            Particle: "WaterParticle",
+            Colour: ["#137594", "#16677A", "#1BAAB8", "#38D4E3", "#AAF4FF", "#6FE2FF", "#55EBFF", "#52CACD"],
+            Life: 3000,
+            Size: 0.5,
+            Shape: {name: "circle"}
+        },
+        {
+            Particle: "WaterParticle",
+            Colour: ["#137594", "#16677A", "#1BAAB8", "#38D4E3", "#AAF4FF", "#6FE2FF", "#55EBFF", "#52CACD"],
+            Life: 3000,
+            Size: 0.5,
+            Shape: {name: "circle"}
+        },
+        {
+            Particle: "WaterParticle",
+            Colour: ["#137594", "#16677A", "#1BAAB8", "#38D4E3", "#AAF4FF", "#6FE2FF", "#55EBFF", "#52CACD"],
+            Life: 3000,
+            Size: 0.5,
+            Shape: {name: "circle"}
         }
     ]
 

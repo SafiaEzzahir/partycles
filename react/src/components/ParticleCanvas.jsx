@@ -14,6 +14,8 @@ export default function ParticleCanvas(props) {
     const PoolRef = useRef([]);
     const RafRef = useRef(null);
 
+    const LastPosRef = useRef(null);
+
     const SnakeTrainRef = useRef([]);
 
     const CursorParticle = useRef({});
@@ -45,7 +47,7 @@ export default function ParticleCanvas(props) {
             const y = e.touches ? e.touches[0].clientY : e.clientY;
 
             for (let i = 0; i < ParticlesRef.current.length; i ++) {
-                const p = ParticlesRef.current[i]
+                var p = ParticlesRef.current[i]
                 var NextColour = true
 
                 if (NextColour) {
@@ -53,14 +55,47 @@ export default function ParticleCanvas(props) {
                     const dy = y - p.y;
                     const distSq = dx * dx + dy * dy;
 
-                    const minDist = (15 + p.size) * 0.6;
+                    const minDist = 1 + p.size * 0.6
 
                     if (distSq < minDist * minDist) {
                         SnakeTrainRef.current.push(p)
                     }
                 }
             }
-            SpawnCursorParticle(x, y)
+
+            const last = LastPosRef.current;
+            const now = performance.now();
+            const dt = Math.max(1, now - LastTimeRef.current);
+
+            let speed = 0;
+
+            if (last) {
+                const dx = x - last.x, dy = y - last.y;
+                speed = (Math.sqrt(dx * dx + dy * dy) / dt * 16)/4;
+
+                const dist = Math.hypot(dx, dy);
+                const steps = Math.ceil(dist/5);
+
+                for (let i = 0; i < steps; i++) {
+                    const ix = last.x + dx * (i + 1) / steps;
+                    const iy = last.y + dy * (i + 1) / steps;
+                    var p2 = SpawnParticle(1, last.x, last.y)
+                    console.log(p)
+                    p2.x = ix
+                    p2.y = iy
+                }
+            } else {
+                var p = SpawnParticle(2, 1, 1) ? SpawnParticle(2, 1, 1) : {}
+                console.log(p)
+                console.log(x)
+                p.x = x
+                p.y = y
+            }
+
+            LastPosRef.current = { x, y };
+            LastTimeRef.current = now;
+
+            SpawnCursorParticle(x, y);
 
         }
 
@@ -111,6 +146,8 @@ export default function ParticleCanvas(props) {
                 if (ParticlesRef.current.length > 55) {
                     const removed = ParticlesRef.current.shift();
                     PoolRef.current.push(removed);
+                
+                return p
                 }
             }
         }
